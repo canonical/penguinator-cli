@@ -186,7 +186,8 @@ def list_test_suites(ctx):
 @click.option('--marketplace-image-urn', '-u', type=str, help='URN of the image ("az vm image list -p Canonical --all")')
 @click.option('--vhd-sas-url', '-v', type=str, help='SAS URL of a VHD to test')
 @click.option('--vm-generation', '-g', default=2, type=int, help="Hyper-V generation (1 or 2)")
-def create_job(ctx, project: str, test_suite: str, subscription: str, marketplace_image_urn: str, vhd_sas_url: str, vm_generation: int):
+@click.option('--vm-size', '-m', help="VM size")
+def create_job(ctx, project: str, test_suite: str, subscription: str, marketplace_image_urn: str, vhd_sas_url: str, vm_generation: int, vm_size: str):
     """
     Create a new test job
     """
@@ -196,7 +197,7 @@ def create_job(ctx, project: str, test_suite: str, subscription: str, marketplac
     payload = {
         'test_project': project,
         'test_suite': test_suite,
-        'subscription': subscription,
+        'azure_subscription': subscription,
         'vm_generation': vm_generation,
     }
 
@@ -208,6 +209,9 @@ def create_job(ctx, project: str, test_suite: str, subscription: str, marketplac
         raise ValueError(
             "One of --vhd-sas-url or --marketplace-image-urn should be passed."
         )
+
+    if vm_size:
+        payload['vm_size'] = vm_size
 
     resp = session.post(
         endpoint,
