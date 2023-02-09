@@ -1,6 +1,8 @@
-# Penguinator API
+# Penguinator CLI
 
-A python API client for Penguinator API: https://penguinatorstarter.powerappsportals.com/webapis2/
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/penguinator-cli)
+
+A Python API client for the Penguinator API: https://penguinatorstarter.powerappsportals.com/webapis2/
 
 ## Usage
 

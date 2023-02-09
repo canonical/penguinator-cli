@@ -3,8 +3,14 @@ base: core22
 version: '0.1'
 summary: A CLI client for Azure's Penguinator API
 description: |
-  The penguinator API provide an abstraction on top of LISA which is a tool
-  for testing Linux VMs on different clouds (Azure, AWS, libvirt...)
+  Penguinator CLI is a light CLI client for the Penguinator API
+
+  https://penguinatorstarter.powerappsportals.com/webapis2/
+
+license: GPL-3.0
+contact: cpc@canonical.com
+website: https://github.com/canonical/penguinator-cli
+issues: https://github.com/canonical/penguinator-cli/issues
 
 grade: stable
 confinement: strict
