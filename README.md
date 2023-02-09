@@ -6,6 +6,14 @@ A Python API client for the Penguinator API: https://penguinatorstarter.powerapp
 
 ## Usage
 
+First, set the following environment variables:
+
+```bash
+export AZURE_TENANT_ID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+export AZURE_CLIENT_ID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+export AZURE_CLIENT_SECRET='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+```
+
 ```bash
 Usage: penguinator-cli [OPTIONS] COMMAND [ARGS]...
 
