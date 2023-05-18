@@ -1,8 +1,8 @@
-# Penguinator CLI
+# Azure Image Testing for Linux CLI
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/penguinator-cli)
 
-A Python API client for the Penguinator API: https://penguinatorstarter.powerappsportals.com/webapis2/
+A Python API client for the Azure Image Testing for Linux API. (Azure Image Testing for Linux is a Microsoft Azure Service.)
 
 ## Usage
 
@@ -12,25 +12,23 @@ First, set the following environment variables:
 export AZURE_TENANT_ID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 export AZURE_CLIENT_ID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 export AZURE_CLIENT_SECRET='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+export AZURE_SUBSCRIPTION_ID=
+export AZURE_RESOURCE_GROUP=
 ```
 
 ```bash
-Usage: penguinator-cli [OPTIONS] COMMAND [ARGS]...
-
-  CLI client for the Penguinator API
-  (https://penguinatorstarter.powerappsportals.com/webapis2/)
+Usage: penguinator-cli COMMAND [OPTIONS] [ARGS]...
 
 Options:
   --help  Show this message and exit.
 
 Commands:
   create-job          Create a new test job
+  create-jobtemplate  Create a new test job template
   get-job             Get a test job.
-  get-projects        Get a test project
-  list-jobs           List all the test jobs
-  list-projects       List all the test projects
-  list-subscriptions  List the subscriptions that can be used for testing
-  list-test-suites    List the test suite available
+  get-jobtemplate     Get a test job template.
+  list-jobs           List all the test jobs.
+  list-jobtemplates   List all the test job templates.
 ```
 
 ## Installation
