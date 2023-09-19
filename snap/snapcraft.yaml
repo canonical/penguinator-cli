@@ -1,9 +1,9 @@
 name: penguinator-cli
 base: core22
 version: '0.1'
-summary: A CLI client for Azure's Penguinator API
+summary: A CLI client for Azure Image Testing for Linux API
 description: |
-  Penguinator CLI is a light CLI client for the Penguinator API
+  Azure Image Testing for Linux Client is a light CLI client for the Azure Image Testing for Linux API
 
   https://penguinatorstarter.powerappsportals.com/webapis2/
 
