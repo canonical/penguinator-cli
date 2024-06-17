@@ -46,6 +46,13 @@ def _template_options(func):
             default="westus3",
             help="job template location, it's not required to be changed",
         ),
+        click.option(
+            "--region",
+            "-r",
+            multiple=True,
+            default=["westeurope"],
+            help="regions where the test resources will be provisioned",
+        ),
     ]
     return _apply_options(func, options)
 
@@ -56,7 +63,7 @@ def _apply_options(func, options):
     return func
 
 
-def _create_template(vm_size, priority, case_name, location):
+def _create_template(vm_size, priority, case_name, location, regions):
     template = {
         "templateTags": [],
     }
@@ -69,8 +76,8 @@ def _create_template(vm_size, priority, case_name, location):
 
     if selection:
         template["selections"] = [selection]
-    if location:
-        template["region"] = [location]
+    if regions:
+        template["region"] = regions
     else:
         template["region"] = []
     if vm_size:
@@ -162,7 +169,7 @@ def get_jobtemplate(ctx, name: str, **kwargs):
 @click.option("--name", "-n", help="job template name", required=True)
 @_template_options
 def create_jobtemplate(
-    ctx, name: str, vm_size: str, priority: str, case_name: str, location: str, **kwargs
+    ctx, name: str, vm_size: str, priority: str, case_name: str, location: str, region: list[str], **kwargs
 ):
     """
     Create a new test job template
@@ -171,7 +178,7 @@ def create_jobtemplate(
 
     session = ctx.obj["session"]
 
-    template = _create_template(vm_size, priority, case_name, location)
+    template = _create_template(vm_size, priority, case_name, location, region)
 
     payload = {"location": location, "name": name, "properties": template}
     resp = session.put(endpoint, json=payload)
@@ -219,22 +226,28 @@ def get_job(ctx, name: str, **kwargs):
     help='URN of the image ("az vm image list -p Canonical --all")',
 )
 @click.option("--vhd-sas-url", "-v", type=str, help="SAS URL of a VHD to test")
+@click.option("--architecture", "-a", type=click.Choice(['x64', 'arm64']), help="Architecture of the image")
 @click.option(
     "--vm-generation", "-g", default=2, type=int, help="Hyper-V generation (1 or 2)"
+)
+@click.option(
+    "--region", "-r", default=["westeurope"], type=str, multiple=True, help="provisioning region for test resources"
 )
 @click.option("--template-name", "-t", type=str, help="job template name")
 @_template_options
 def create_job(
     ctx,
     name: str,
-    marketplace_image_urn,
+    marketplace_image_urn: str,
     vhd_sas_url: str,
+    architecture: str,
     template_name: str,
     vm_generation: int,
     vm_size: str,
     priority: str,
     case_name: str,
     location: str,
+    region: list[str],
     **kwargs,
 ):
     """
@@ -246,7 +259,7 @@ def create_job(
 
     image = {
         "vhdGeneration": vm_generation,
-        "architecture": "x64",
+        "architecture": architecture,
     }
     if marketplace_image_urn:
         image["type"] = "marketplace"
@@ -267,7 +280,7 @@ def create_job(
             "One of --vhd-sas-url or --marketplace-image-urn should be passed."
         )
 
-    template = _create_template(vm_size, priority, case_name, location)
+    template = _create_template(vm_size, priority, case_name, location, region)
 
     payload = {
         "location": location,
