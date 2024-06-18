@@ -76,14 +76,9 @@ def _create_template(vm_size, priority, case_name, location, regions):
 
     if selection:
         template["selections"] = [selection]
-    if regions:
-        template["region"] = regions
-    else:
-        template["region"] = []
-    if vm_size:
-        template["vmSize"] = [vm_size]
-    else:
-        template["vmSize"] = []
+
+    template["region"] = regions if regions else []
+    template["vmSize"] = [vm_size] if vm_size else []
 
     return template
 
@@ -228,7 +223,7 @@ def get_job(ctx, name: str, **kwargs):
 @click.option("--vhd-sas-url", "-v", type=str, help="SAS URL of a VHD to test")
 @click.option("--architecture", "-a", type=click.Choice(['x64', 'arm64']), help="Architecture of the image")
 @click.option(
-    "--vm-generation", "-g", default=2, type=int, help="Hyper-V generation (1 or 2)"
+    "--vm-generation", "-g", default=2, type=click.Choice([1, 2]), help="Hyper-V generation (1 or 2)"
 )
 @click.option(
     "--region", "-r", default=["westeurope"], type=str, multiple=True, help="Provisioning region for test resources"
