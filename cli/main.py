@@ -15,7 +15,7 @@ RESOURCE_GROUP = os.getenv("AZURE_RESOURCE_GROUP")
 
 
 def _get_endpoint(segment, **kwargs):
-    resource_group = kwargs.get("resource_group")
+    resource_group = kwargs["resource_group"]
     return (
         f"https://eastus2euap.management.azure.com/subscriptions/{SUBSCRIPTION_ID}/"
         f"resourceGroups/{resource_group}/providers/{RESOURCE_PROVIDER}/"
@@ -29,7 +29,7 @@ def _common_options(func):
             "--resource-group",
             "-rg",
             default=RESOURCE_GROUP,
-            help="Azure Resource Group name",
+            help="Azure Resource Group name"
         ),
     ]
     return _apply_options(func, options)
@@ -44,14 +44,14 @@ def _template_options(func):
             "--location",
             "-l",
             default="westus3",
-            help="job template location, it's not required to be changed",
+            help="Job template location, it's not required to be changed",
         ),
         click.option(
             "--region",
             "-r",
             multiple=True,
             default=["westeurope"],
-            help="regions where the test resources will be provisioned",
+            help="Regions where the test resources will be provisioned",
         ),
     ]
     return _apply_options(func, options)
@@ -150,7 +150,7 @@ def list_templates(ctx, **kwargs):
 @cli.command()
 @click.pass_context
 @_common_options
-@click.option("--name", "-n", help="job template name", required=True)
+@click.option("--name", "-n", help="Job template name", required=True)
 def get_template(ctx, name: str, **kwargs):
     """
     Get a test job template.
@@ -166,7 +166,7 @@ def get_template(ctx, name: str, **kwargs):
 @cli.command()
 @click.pass_context
 @_common_options
-@click.option("--name", "-n", help="job template name", required=True)
+@click.option("--name", "-n", help="Job template name", required=True)
 @_template_options
 def create_template(
     ctx, name: str, vm_size: str, priority: str, case_name: str, location: str, region: list[str], **kwargs
@@ -219,7 +219,7 @@ def get_job(ctx, name: str, **kwargs):
 @cli.command()
 @click.pass_context
 @_common_options
-@click.option("--name", "-n", required=True, help="job name")
+@click.option("--name", "-n", required=True, help="Job name")
 @click.option(
     "--marketplace-image-urn",
     "-u",
@@ -231,9 +231,9 @@ def get_job(ctx, name: str, **kwargs):
     "--vm-generation", "-g", default=2, type=int, help="Hyper-V generation (1 or 2)"
 )
 @click.option(
-    "--region", "-r", default=["westeurope"], type=str, multiple=True, help="provisioning region for test resources"
+    "--region", "-r", default=["westeurope"], type=str, multiple=True, help="Provisioning region for test resources"
 )
-@click.option("--template-name", "-t", type=str, help="job template name")
+@click.option("--template-name", "-t", type=str, help="Job template name")
 @_template_options
 def create_job(
     ctx,
