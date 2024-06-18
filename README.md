@@ -17,18 +17,20 @@ export AZURE_RESOURCE_GROUP=
 ```
 
 ```bash
-Usage: penguinator-cli COMMAND [OPTIONS] [ARGS]...
+Usage: penguinator-cli [OPTIONS] COMMAND [ARGS]...
+
+  CLI client for the Azure Image Testing for Linux API
 
 Options:
   --help  Show this message and exit.
 
 Commands:
-  create-job          Create a new test job
-  create-jobtemplate  Create a new test job template
-  get-job             Get a test job.
-  get-jobtemplate     Get a test job template.
-  list-jobs           List all the test jobs.
-  list-jobtemplates   List all the test job templates.
+  create-job       Create a new test job
+  create-template  Create a new test job template
+  get-job          Get a test job.
+  get-template     Get a test job template.
+  list-jobs        List all the test jobs.
+  list-templates   List all the test job templates.
 ```
 
 ## Installation

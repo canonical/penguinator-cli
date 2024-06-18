@@ -135,7 +135,7 @@ def cli(ctx):
 @cli.command()
 @click.pass_context
 @_common_options
-def list_jobtemplates(ctx, **kwargs):
+def list_templates(ctx, **kwargs):
     """
     List all the test job templates.
     """
@@ -151,7 +151,7 @@ def list_jobtemplates(ctx, **kwargs):
 @click.pass_context
 @_common_options
 @click.option("--name", "-n", help="job template name", required=True)
-def get_jobtemplate(ctx, name: str, **kwargs):
+def get_template(ctx, name: str, **kwargs):
     """
     Get a test job template.
     """
@@ -168,7 +168,7 @@ def get_jobtemplate(ctx, name: str, **kwargs):
 @_common_options
 @click.option("--name", "-n", help="job template name", required=True)
 @_template_options
-def create_jobtemplate(
+def create_template(
     ctx, name: str, vm_size: str, priority: str, case_name: str, location: str, region: list[str], **kwargs
 ):
     """
