@@ -2,7 +2,7 @@
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/penguinator-cli)
 
-A Python API client for the Azure Image Testing for Linux API. (Azure Image Testing for Linux is a Microsoft Azure Service.)
+A Python client for the Azure Image Testing for Linux API. (Azure Image Testing for Linux is a Microsoft Azure Service.)
 
 ## Usage
 
