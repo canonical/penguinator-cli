@@ -11,7 +11,6 @@ TENANT_ID = os.getenv("AZURE_TENANT_ID")
 SUBSCRIPTION_ID = os.getenv("AZURE_SUBSCRIPTION_ID")
 CLIENT_ID = os.getenv("AZURE_CLIENT_ID")
 CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")
-RESOURCE_GROUP = os.getenv("AZURE_RESOURCE_GROUP")
 
 
 def _get_endpoint(segment, **kwargs):
@@ -28,7 +27,8 @@ def _common_options(func):
         click.option(
             "--resource-group",
             "-rg",
-            default=RESOURCE_GROUP,
+            envvar="RESOURCE_GROUP",
+            required=True,
             help="Azure Resource Group name"
         ),
     ]
