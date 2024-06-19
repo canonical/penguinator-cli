@@ -261,7 +261,8 @@ def create_job(
         image_parts = marketplace_image_urn.split(":")
         if len(image_parts) != 4:
             raise ValueError(
-                "marketplace_image_urn should be in the format of 'publisher:offer:sku:version'"
+                "Marketplace_image_urn should be in the format of 'publisher:offer:sku:version', "
+                f"got {marketplace_image_urn}"
             )
         image["publisher"] = image_parts[0]
         image["offer"] = image_parts[1]
