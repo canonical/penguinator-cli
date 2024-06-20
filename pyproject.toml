@@ -1,3 +1,47 @@
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "aitlcli"
+version = "0.1.0"
+authors = [
+    { name = "Canonical Public Cloud", email = "cpc@canonical.com" }
+]
+description = "Basic Azure Image Testing for Linux API client"
+readme = "README.md"
+keywords = [ "aitl", "azure" ]
+license = { file = "GPLv3" }
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3"
+]
+requires-python = ">=3.8"
+dependencies = [
+    "requests",
+    "click"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "isort",
+    "mypy",
+    "types-requests"
+]
+
+[project.scripts]
+aitl-cli = "cli.main:cli"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+strict = "true"
+follow_imports = "silent"
+warn_unused_ignores = "true"
+warn_redundant_casts = "true"
