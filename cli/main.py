@@ -292,4 +292,4 @@ def create_job(
 
 
 if __name__ == "___main__":
-    main()
+    cli()
