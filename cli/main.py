@@ -86,7 +86,7 @@ def _create_template(vm_size, priority, case_name, location, regions):
 def _output_result(resp):
     try:
         resp.raise_for_status()
-    except:
+    except requests.exceptions.HTTPError:
         print(resp.json())
         raise
 
@@ -105,7 +105,7 @@ def auth() -> str:
     resp = requests.post(auth_url, data=data)
     try:
         resp.raise_for_status()
-    except:
+    except requests.exceptions.HTTPError:
         print(resp.json())
         raise
 
