@@ -16,16 +16,18 @@ def _get_endpoint(segment: str, resource_group: str, subscription_id: str) -> st
     )
 
 
-def _create_template(vm_size: str, priority: str, case_name: str, location: str, regions: list[str]) -> dict[str, Any]:
+def _create_template(
+    vm_size: str, test_priorities: list[str], test_cases: list[str], location: str, regions: list[str]
+) -> dict[str, Any]:
     template: dict[str, Any] = {
         "templateTags": [],
     }
 
     selection: dict[str, Any] = dict()
-    if priority:
-        selection["casePriority"] = [int(x) for x in priority.split(",") if x]
-    if case_name:
-        selection["caseName"] = [x for x in case_name.split(",") if x]
+    if test_priorities:
+        selection["casePriority"] = [int(x) for x in test_priorities]
+    if test_cases:
+        selection["caseName"] = test_cases
 
     if selection:
         template["selections"] = [selection]
@@ -126,8 +128,8 @@ def get_template(ctx: click.Context, name: str) -> None:
 @click.pass_context
 @click.option("--name", "-n", help="Job template name.", required=True)
 @click.option("--vm-size", "-s", help="VM size.")
-@click.option("--priority", "-p", help="A comma separated list of LISA test priority to run.")
-@click.option("--case-name", "-c", help="A comma separated list of LISA test case to run.")
+@click.option("--test-priority", "-p", "test_priorities", multiple=True, help="Test priority to run.")
+@click.option("--test-case", "-c", "test_cases", multiple=True, help="Test case to run.")
 @click.option(
     "--location",
     "-l",
@@ -145,21 +147,21 @@ def create_template(
     ctx: click.Context,
     name: str,
     vm_size: str,
-    priority: str,
-    case_name: str,
+    test_priorities: list[str],
+    test_cases: list[str],
     location: str,
     region: list[str],
 ) -> None:
     """
     Create a new test job template.
 
-    If --priority and --case-name are not set, only p0 tests will be run (smoke tests).
+    If --test-priority and --test-case are not set, only p0 tests will be run (smoke tests).
     """
     endpoint = _get_endpoint(f"jobTemplates/{name}", ctx.obj["resource_group"], ctx.obj["subscription_id"])
 
     session = ctx.obj["session"]
 
-    template = _create_template(vm_size, priority, case_name, location, region)
+    template = _create_template(vm_size, test_priorities, test_cases, location, region)
 
     payload = {"location": location, "name": name, "properties": template}
     resp = session.put(endpoint, json=payload)
@@ -212,8 +214,8 @@ def get_job(ctx: click.Context, name: str) -> None:
 @click.option("--template-name", "-t", type=str, help="Job template name.")
 @click.option("--name", "-n", help="Job template name.", required=True)
 @click.option("--vm-size", "-s", help="VM size.")
-@click.option("--priority", "-p", help="A comma separated list of LISA test priority to run.")
-@click.option("--case-name", "-c", help="A comma separated list of LISA test case to run.")
+@click.option("--test-priority", "-p", "test_priorities", multiple=True, help="Test priority to run.")
+@click.option("--test-case", "-c", "test_cases", multiple=True, help="Test case to run.")
 @click.option(
     "--location",
     "-l",
@@ -236,15 +238,15 @@ def create_job(
     template_name: str,
     vm_generation: str,
     vm_size: str,
-    priority: str,
-    case_name: str,
+    test_priorities: list[str],
+    test_cases: list[str],
     location: str,
     region: list[str],
 ) -> None:
     """
     Create a new test job
 
-    If --priority and --case-name are not set, only p0 tests will be run (smoke tests).
+    If --test-priority and --test-case are not set, only p0 tests will be run (smoke tests).
     """
     endpoint = _get_endpoint(f"jobs/{name}", ctx.obj["resource_group"], ctx.obj["subscription_id"])
 
@@ -272,7 +274,7 @@ def create_job(
     else:
         raise ValueError("One of --vhd-sas-url or --marketplace-image-urn should be passed.")
 
-    template = _create_template(vm_size, priority, case_name, location, region)
+    template = _create_template(vm_size, test_priorities, test_cases, location, region)
 
     payload = {
         "location": location,
