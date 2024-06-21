@@ -8,7 +8,7 @@ version = "0.1.0"
 authors = [
     { name = "Canonical Public Cloud", email = "cpc@canonical.com" }
 ]
-description = "Basic Azure Image Testing for Linux API client"
+description = "Azure Image Testing for Linux (AITL) API client"
 readme = "README.md"
 keywords = [ "aitl", "azure" ]
 license = { file = "GPLv3" }
