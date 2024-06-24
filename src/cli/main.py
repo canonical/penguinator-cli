@@ -208,9 +208,6 @@ def get_job(ctx: click.Context, name: str) -> None:
 @click.option("--vhd-sas-url", "-v", type=str, help="SAS URL of a VHD to test.")
 @click.option("--architecture", "-a", type=click.Choice(["x64", "arm64"]), help="Architecture of the image.")
 @click.option("--vm-generation", "-g", default="2", type=click.Choice(["1", "2"]), help="Hyper-V generation.")
-@click.option(
-    "--region", "-r", default=["westeurope"], type=str, multiple=True, help="Provisioning region for test resources."
-)
 @click.option("--template-name", "-t", type=str, help="Job template name.")
 @click.option("--name", "-n", help="Job template name.", required=True)
 @click.option("--vm-size", "-s", help="VM size.")
