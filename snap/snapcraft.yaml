@@ -1,22 +1,20 @@
-name: penguinator-cli
+name: aitl-cli
 base: core22
 version: '0.1'
-summary: A CLI client for Azure's Penguinator API
+summary: A CLI client for Azure Image Testing for Linux API
 description: |
-  Penguinator CLI is a light CLI client for the Penguinator API
-
-  https://penguinatorstarter.powerappsportals.com/webapis2/
+  The AITL client is a light CLI client for the Azure Image Testing for Linux API
 
 license: GPL-3.0
 contact: cpc@canonical.com
-website: https://github.com/canonical/penguinator-cli
-issues: https://github.com/canonical/penguinator-cli/issues
+website: https://github.com/canonical/aitl-cli
+issues: https://github.com/canonical/aitl-cli/issues
 
 grade: stable
 confinement: strict
 
 parts:
-  penguinator-cli:
+  aitl-cli:
     plugin: python
     source: .
     python-packages:
@@ -26,7 +24,7 @@ parts:
       - '.'
 
 apps:
-  penguinator-cli:
-    command: bin/penguinator-cli
+  aitl-cli:
+    command: bin/aitl-cli
     plugs:
       - network
